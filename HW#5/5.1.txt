@@ -1,0 +1,15 @@
+>> [sign_bit, Exponent_bits, mantissa_bits] = showfloat(1.5)
+
+sign_bit = 
+
+    "0"
+
+
+Exponent_bits = 
+
+    "01111111111"
+
+
+mantissa_bits = 
+
+    "1000000000000000000000000000000000000000000000000000"

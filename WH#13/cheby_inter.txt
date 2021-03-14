@@ -1,0 +1,28 @@
+>> f = @(x) x.*sin(x)
+
+f =
+
+  function_handle with value:
+
+    @(x)x.*sin(x)
+
+>> x = -2*cos(1)+2*sin(1)
+
+x =
+
+   0.602337357879513
+
+>>  c_4 = cheby_inter(f,4);
+    c_6 = cheby_inter(f,6);
+    c_10 = cheby_inter(f,10);
+
+>> c = [c_4 c_6 c_10];
+>> error = abs(c - x)'
+
+error =
+
+   1.0e-03 *
+   
+   0.154362643490780
+   0.000148674157208
+   0.000000000211609

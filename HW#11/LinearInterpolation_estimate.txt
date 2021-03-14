@@ -1,0 +1,35 @@
+r = pi* rand(100,1);
+>> X = HW8_8(x,r); %Scans through r and pulls the sample intervals
+
+>> X = unique(X); % HW8_8 function produces duplicates
+>> X = sort(X); % interp1 requires a sorted list of sample points
+>> Y = sin(X); 
+
+>> vq = interp1(X,Y,x'); %finding linear interpolation over linspace
+
+>> estimate = interp1(X,Y,r); %Finding estimated values of sin(r(j))
+
+
+%Plot of our linear interpolation + estimates of sin(r(j)) 
+%+ sample points x 
+
+>> plot(X,Y,'o',r,estimate,'x',x',vq,':.'); 
+
+% Error calculation/ finding max errors of our interpolation
+
+>> error = abs(estimate - sin(r));
+>> max(error)
+
+ans =
+
+     1.211551538315980e-06
+     
+     
+
+>> error_relative = abs((estimate - sin(r))./sin(r));
+
+>> max(error_relative)
+
+ans =
+
+     1.235656166677914e-06

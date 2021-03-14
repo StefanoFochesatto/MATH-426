@@ -1,0 +1,7 @@
+f = inline('(1+exp(-x)).^(-1)')
+
+f =
+
+     Inline function:
+     f(x) = (1+exp(-x)).^(-1)
+

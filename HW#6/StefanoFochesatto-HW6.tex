@@ -1,0 +1,405 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% This top part of the document is called the 'preamble'.  Modify it with caution!
+%
+% The real document starts below where it says 'The main document starts here'.
+
+\documentclass[12pt]{article}
+
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage[top=1in, bottom=1in, left=1.25in, right=1.25in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{verbatim}
+\usepackage{listings}
+
+% Comment the following line to use TeX's default font of Computer Modern.
+\usepackage{times,txfonts}
+
+\newtheoremstyle{homework}% name of the style to be used
+  {18pt}% measure of space to leave above the theorem. E.g.: 3pt
+  {12pt}% measure of space to leave below the theorem. E.g.: 3pt
+  {}% name of font to use in the body of the theorem
+  {}% measure of space to indent
+  {\bfseries}% name of head font
+  {:}% punctuation between head and body
+  {2ex}% space after theorem head; " " = normal interword space
+  {}% Manually specify head
+\theoremstyle{homework} 
+
+% Set up an Exercise environment and a Solution label.
+\newtheorem*{exercisecore}{\@currentlabel}
+\newenvironment{exercise}[1]
+{\def\@currentlabel{#1}\exercisecore}
+{\endexercisecore}
+
+\newcommand{\localhead}[1]{\par\smallskip\noindent\textbf{#1}\nobreak\\}%
+\newcommand\solution{\localhead{Solution:}}
+
+
+
+% \newcommand{includematlab}[1]{\verbatiminput{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Stuff for getting the name/document date/title across the header
+\makeatletter
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+\fancyfoot[C]{\ifnum \value{page} > 1\relax\thepage\fi}
+\fancyhead[L]{\ifx\@doclabel\@empty\else\@doclabel\fi}
+\fancyhead[C]{\ifx\@docdate\@empty\else\@docdate\fi}
+\fancyhead[R]{\ifx\@docauthor\@empty\else\@docauthor\fi}
+\headheight 15pt
+
+\def\doclabel#1{\gdef\@doclabel{#1}}
+\doclabel{Use {\tt\textbackslash doclabel\{MY LABEL\}}.}
+\def\docdate#1{\gdef\@docdate{#1}}
+\docdate{Use {\tt\textbackslash docdate\{MY DATE\}}.}
+\def\docauthor#1{\gdef\@docauthor{#1}}
+\docauthor{Use {\tt\textbackslash docauthor\{MY NAME\}}.}
+\makeatother
+
+%% General formatting parameters
+\parindent 0pt
+\parskip 12pt plus 1pt
+
+% Shortcuts for blackboard bold number sets (reals, integers, etc.)
+\newcommand{\Reals}{\ensuremath{\mathbb R}}
+\newcommand{\Nats}{\ensuremath{\mathbb N}}
+\newcommand{\Ints}{\ensuremath{\mathbb Z}}
+\newcommand{\Rats}{\ensuremath{\mathbb Q}}
+\newcommand{\Cplx}{\ensuremath{\mathbb C}}
+%% Some equivalents that some people may prefer.
+\let\RR\Reals
+\let\NN\Nats
+\let\II\Ints
+\let\CC\Cplx
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% The main document start here.
+
+% The following commands set up the material that appears in the header.
+\doclabel{Math 426: Homework 6}
+\docauthor{Stefano Fochesatto}
+\docdate{\today}
+
+\newcommand{\vv}{\mathbf{v}}
+\begin{document}
+
+\begin{exercise}{Problem 7.1} Write the following matrix in the form $LU$, where $L$ is a unit lower triangular matrix and $U$ is an upper triangular matrix,
+	\begin{equation*}
+		\begin{pmatrix}4&-1&-1\\ -1&4&-1\\ -1&-1&4\end{pmatrix}
+	\end{equation*}
+	Step one of gaussian elimination by reducing the terms of the first column,
+	\begin{equation*}
+		L_1A = \begin{pmatrix}1&0&0\\ \frac{1}{4}&1&0\\ \frac{1}{4}&0&1\end{pmatrix} \begin{pmatrix}4&-1&-1\\ -1&4&-1\\ -1&-1&4\end{pmatrix} = \begin{pmatrix}4&-1&-1\\ 0&\frac{15}{4}&-\frac{5}{4}\\ 0&-\frac{5}{4}&\frac{14}{4}\end{pmatrix}.
+	\end{equation*}
+	
+	Step two we reduce the terms in the second column and we get $L$ and $U$,
+	\begin{equation*}
+		L_2L_1A =  \begin{pmatrix}1&0&0\\ 0&1&0\\ 0&\frac{1}{3}&1\end{pmatrix}  \begin{pmatrix}4&-1&-1\\ 0&\frac{15}{4}&-\frac{5}{4}\\ 0&-\frac{5}{4}&\frac{14}{4}\end{pmatrix} = \begin{pmatrix}4&-1&-1\\ 0&\frac{15}{4}&-\frac{5}{4}\\ 0&0&\frac{10}{3}\end{pmatrix}.
+	\end{equation*}
+		Therefore we know that,
+		\begin{equation*}
+			L = L_1^{-1}L_2^{-1} = \begin{pmatrix}1&0&0\\ -\frac{1}{4}&1&0\\ -\frac{1}{4}&-\frac{1}{3}&1\end{pmatrix}
+		\end{equation*}
+		\begin{equation*}
+			U = \begin{pmatrix}4&-1&-1\\ 0&\frac{15}{4}&-\frac{5}{4}\\ 0&0&\frac{10}{3}\end{pmatrix}
+		\end{equation*}
+		Now consider the following equation,
+		\begin{equation*}
+			A = LL^{T}.
+		\end{equation*}
+		Through matrix multiplication we see that $LL^{T}$ results in the following symmetric matrix.
+		\begin{equation*}
+		LL^{T} ={\begin{pmatrix}L_{11}^{2}&   &   ({\text{symmetric}})\\L_{21}L_{11}&   L_{21}^{2}+L_{22}^{2}&   \\L_{31}L_{11}&   L_{31}L_{21}+L_{32}L_{22}&   L_{31}^{2}+L_{32}^{2}+L_{33}^{2}\end{pmatrix}}.
+		\end{equation*}
+		Plugging in our values from $A$ and solving for the $L_{ij}$ terms we get,
+		\begin{equation*}
+			L =  \begin{pmatrix}2&0&0\\ -\frac{1}{2}&\frac{\sqrt{15}}{2}&0\\ -\frac{1}{2}&-\frac{\sqrt{15}}{6}&\frac{\sqrt{30}}{2} \end{pmatrix}
+		\end{equation*}
+		Therefore writing $A$ in terms of its $LL^{T}$ factorization,
+		\begin{equation*}
+			A =  \begin{pmatrix}2&0&0\\ -\frac{1}{2}&\frac{\sqrt{15}}{2}&0\\ -\frac{1}{2}&-\frac{\sqrt{15}}{6}&\frac{\sqrt{30}}{2} \end{pmatrix} \begin{pmatrix}2&-\frac{1}{2}&-\frac{1}{2}\\ 0&\frac{\sqrt{15}}{2}&-\frac{\sqrt{15}}{6}\\ 0&0&\frac{\sqrt{30}}{2}\end{pmatrix}
+		\end{equation*}
+		We can also double check our algebra using Matlab,\\
+		\textbf{Console:}
+		\begin{center}
+			\lstinputlisting{algebra.txt}
+		\end{center}
+
+
+
+
+
+
+
+
+	\end{exercise}
+\vspace{.5in}
+
+
+
+
+
+
+
+
+\begin{exercise}{Problem 7.2} Write a function $usolve$, analogous to the function $lsolve$ in section 7.2.2. to solve
+	an upper triangular system, $Ux = y$. \\
+
+	\textbf{Code:}
+	\begin{center}
+		\lstinputlisting{usolve.m}
+	\end{center}
+
+	Testing the code with a couple of problems,\\
+
+	\textbf{Console:}
+	\begin{center}
+		\lstinputlisting{usolvetest.txt}
+	\end{center}
+
+
+
+
+\end{exercise}
+
+
+\vspace*{1in}
+
+
+
+
+
+
+
+
+
+
+\begin{exercise} {Problem 7.3 [Modified]} \strut
+
+\begin{itemize}
+	\item By hand, solve the following linear system exactly,
+	\begin{equation*}
+		A = \begin{pmatrix}
+			10^{-16} && 1\\
+			1 && 1
+		\end{pmatrix},
+		b = \begin{pmatrix}
+			2\\
+			3
+		\end{pmatrix}.
+	\end{equation*}
+	Write your answer in the form that it is clear what the approximate values of $x_1$ and $x_2$ are.\\
+
+	\solution
+	First we will perform gaussian elimination on the augmented matrix $Ab$.
+	\begin{equation*}
+		\begin{pmatrix}
+			10^{-16} && 1 &&| 2\\
+			1 && 1 &&| 3
+		\end{pmatrix}
+		\to
+		\begin{pmatrix}
+			10^{-16} && 1 &&| 2\\
+			0 && 1 - 10^{-16} &&| 3 - 2*10^{-16}
+		\end{pmatrix}
+	\end{equation*}
+Solving the system of linear equation, we get,
+\begin{equation*}
+	x_2 = \dfrac{3 - 2\times 10^{-16}}{1 - \times 10^{-16}} \approx \dfrac{- 2\times 10^{-16}}{-\times 10^{-16}} \approx 2
+\end{equation*}
+\begin{equation*}
+x_1 = (2 - \dfrac{3 - 2\times 10^{-16}}{1 - \times 10^{-16}})10^{16} \approx (2 - \dfrac{-2\times 10^{-16}}{-\times 10^{-16}})10^{16} \approx (2 - 2) 10^{16} \approx 0
+\end{equation*}
+
+\vspace*{.25in}
+
+
+
+	\item Write a Matlab function {\tt LUNoPivot} that 
+	takes as input a square matrix and returns two matrices $L$ and $U$,
+	lower and upper triangular matrices such that $L$ has 1's
+	on the diagonal and such that $A=LU$.  Do not pivot (i.e., do not perform row interchanges).  You can use the code on page 140
+	of your text as a starting point. You should test your code on the 
+	$3\times 3$ matrix presented in class today; the matrix $A$ from
+	page 135.  That is, verify that indeed $LU=A$.
+
+	Note that the code on page 140 is being sneaky.  Rather than building two matrices, it builds just one. Since $L$ always has 1s on the diagonal, it only has interesting entries below the diagonal.  And since $U$ is all zeros below the diagonal, there's space there to store the entries of $L$!  This is an important space saving technique when the matrices involved are large: no need to go around working with extra matrices that are half zeros and use up twice the needed storage.  But for the purposes of this exercise and clarity,
+	we'll return $L$ and $U$ separately.\\
+
+	\textbf{Code:}
+	\begin{center}
+		\lstinputlisting{LUNoPivot.m}
+	\end{center}
+	Testing our code with the 3x3 matrix presented in class.\\
+
+	\textbf{Console:}
+	\begin{center}
+		\lstinputlisting{LUNoPivotTest.txt}
+	\end{center}
+\vspace{.25in}
+
+	\item Use {\tt lsolve} from the text (page 140) and write matlab that solves the linear system 
+	$Ax = b$. Compare the answer to this code to the one you determined by hand.
+
+	\solution We simply write a function that calls our prior three functions appropriately to produce a solution. Consider,\\
+
+	\textbf{Code:}
+
+	
+	\begin{center}
+		\lstinputlisting{NoPivotSolve.m}
+	\end{center}
+
+	Using our code to solve $Ax = b$\\
+
+	\textbf{Console:}
+	\begin{center}
+		\lstinputlisting{NoPivotSolveTest.txt}
+	\end{center}
+
+\end{itemize}
+\end{exercise}
+
+\vspace{1in}
+
+
+
+\begin{exercise}{Problem 7.4}  The matrix $P$ in this
+problem is called a permutation matrix.  We'll discuss this more when we
+cover pivoting.  But you can still work on this problem. The
+first step to solving $Ax=b$ in this context is to multiply the equation
+by $P$.  Notice that all $P$ does in rearrange the entries of $b$: that's
+why it's called a permutation matrix!\\
+
+\solution Consider the following,
+\begin{align*}
+	Ax &= b\\
+	PAx &= Pb.
+\end{align*}
+Note that we have the $LU$ factorization for the matrix $PA$ therefore all we must do is solve for $Pb$ and
+continue with solving the system by $LU$ factorization as normal. Through matrix multiplication,
+\begin{equation*}
+	Pb = \begin{pmatrix}
+		0 &&0 &&1\\ 
+		1 &&0&& 0\\
+		0 &&1 &&0
+	\end{pmatrix}
+	\begin{pmatrix}
+		2\\
+		10\\
+		-12
+	\end{pmatrix}
+	 = 
+	 \begin{pmatrix}
+		-12\\
+		2\\
+		10
+	\end{pmatrix}.
+\end{equation*}
+Then we continue by solving the system $L\hat{b} =Pb$,
+\begin{equation*}
+	\begin{pmatrix}
+		1 &&0 &&0\\ 
+		\frac{1}{2} &&1&& 0\\
+		\frac{1}{3} &&\frac{1}{4}&&1
+	\end{pmatrix}
+	\begin{pmatrix}
+		\hat{b}_1\\
+		\hat{b}_2\\
+		\hat{b}_3
+	\end{pmatrix} = 
+	\begin{pmatrix}
+		-12\\
+		2\\
+		10
+	\end{pmatrix}.
+\end{equation*}
+Doing so we get, 
+\begin{equation*}
+	\hat{b} = 	\begin{pmatrix}
+		-12\\
+		12\\
+		8
+	\end{pmatrix}.
+\end{equation*}
+Finally we solve the system by solving $Ux = \hat{b}$
+\begin{equation*}
+	\begin{pmatrix}
+		2 &&3 &&1\\ 
+		0 &&1&& 2\\
+		0 &&0 &&2
+	\end{pmatrix}	
+	\begin{pmatrix}
+		  x_1\\
+		  x_2\\
+		  x_3
+	\end{pmatrix}
+	 = 
+	 \begin{pmatrix}
+		-12\\
+		12\\
+		8
+	\end{pmatrix}.
+\end{equation*}
+Therefore the solution to $Ax = b$ is,
+\begin{equation*}
+	x = \begin{pmatrix}-14\\ 4\\ 4\end{pmatrix}
+\end{equation*}
+\end{exercise}
+\vspace{1in}
+
+
+
+
+
+
+
+
+
+\begin{exercise}{Problem 7.6} How many operations are requresd to computre the following,
+	\begin{enumerate}
+		\item Compute the sum of two $n$-vectors?\\
+		
+		\solution When we add or subtract vectors we add or subtract the correspoding socmponents therefore there are
+		$2n$ operations when computing the sum of two $n$-vectors. 
+		\vspace{.25in}
+
+
+
+		\item Compute the product of an $m$ by $n$ matrix with an $n$-vector?\\
+		
+		\solution To compute the product of a matrix and a vector, we take the dot product of each row vector from the matrix with the vector. 
+		Note that the dot product of two $n$-vectors has $n$ multiplications and $n-1$ additions, and in this case there are $m$ dot products. Thus
+		the total number of computations is, $m(2n-1)$. 
+
+
+
+
+		\vspace{.25in}
+
+
+
+		\item Solve an $n$ by $n$ upper triangular linear system $Ux = y$?\\
+		
+		\solution Recall that we did this exercise in class. Consider the form of $x_1$,
+		\begin{equation*}
+			x_1 = \dfrac{y_1 - a_2x_2 - a_3x_3 - a_4x_4 ... - a_nx_n}{a_1}
+		\end{equation*}
+		where $a_i = U(1,i)$. Now note that for each $x_n$ computation there are $n-1$ multiplications, $n-1$ subtractions, and 1 division so $2n-1$ operations total. 
+		To solve the whole system we must compute all $x_n$ therefore the total number of computations is,
+		\begin{equation*}
+			\sum_{i = 1}^n 2i - 1 = n^2.
+		\end{equation*}  
+		Note that the algebra for this computation was done in class and on the worksheet. 
+	\end{enumerate}
+\end{exercise}
+
+\end{document}

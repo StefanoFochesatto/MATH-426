@@ -1,0 +1,4 @@
+>> N = vandercon(20);
+>> logN = log(N');
+>> n = [1:20];
+>> plot(n,logN','*','linewidth',2)

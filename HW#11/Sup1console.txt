@@ -1,0 +1,14 @@
+>> hist = HW11_Sup(f,40);
+
+>> for i = 1:20
+ 
+    if (hist(i)<= 1*10^(-6))
+        y = i
+        break
+ 
+    end
+end
+
+y =
+
+    13

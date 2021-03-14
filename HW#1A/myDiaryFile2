@@ -1,0 +1,19 @@
+c = [-1:.5:1]
+
+c =
+
+   -1.0000   -0.5000         0    0.5000    1.0000
+
+x = [-1:.01:1];
+y = c'.*exp(x);
+plot(x,y)
+legend(num2str(c'))
+title(legend,'C =')
+xlabel('x axis')
+ylabel('y axis')
+set(gca,'FontName','Times')
+set(gca,'FontSize',12)
+title('Plot of $y = Ce^x$')
+title('Plot of y = Ce^x')
+grid
+

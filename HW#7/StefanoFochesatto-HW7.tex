@@ -1,0 +1,228 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% This top part of the document is called the 'preamble'.  Modify it with caution!
+%
+% The real document starts below where it says 'The main document starts here'.
+
+\documentclass[12pt]{article}
+
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage[top=1in, bottom=1in, left=1.25in, right=1.25in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{verbatim}
+\usepackage{listings}
+
+% Comment the following line to use TeX's default font of Computer Modern.
+\usepackage{times,txfonts}
+
+\newtheoremstyle{homework}% name of the style to be used
+  {18pt}% measure of space to leave above the theorem. E.g.: 3pt
+  {12pt}% measure of space to leave below the theorem. E.g.: 3pt
+  {}% name of font to use in the body of the theorem
+  {}% measure of space to indent
+  {\bfseries}% name of head font
+  {:}% punctuation between head and body
+  {2ex}% space after theorem head; " " = normal interword space
+  {}% Manually specify head
+\theoremstyle{homework} 
+
+% Set up an Exercise environment and a Solution label.
+\newtheorem*{exercisecore}{\@currentlabel}
+\newenvironment{exercise}[1]
+{\def\@currentlabel{#1}\exercisecore}
+{\endexercisecore}
+
+\newcommand{\localhead}[1]{\par\smallskip\noindent\textbf{#1}\nobreak\\}%
+\newcommand\solution{\localhead{Solution:}}
+
+
+
+% \newcommand{includematlab}[1]{\verbatiminput{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Stuff for getting the name/document date/title across the header
+\makeatletter
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+\fancyfoot[C]{\ifnum \value{page} > 1\relax\thepage\fi}
+\fancyhead[L]{\ifx\@doclabel\@empty\else\@doclabel\fi}
+\fancyhead[C]{\ifx\@docdate\@empty\else\@docdate\fi}
+\fancyhead[R]{\ifx\@docauthor\@empty\else\@docauthor\fi}
+\headheight 15pt
+
+\def\doclabel#1{\gdef\@doclabel{#1}}
+\doclabel{Use {\tt\textbackslash doclabel\{MY LABEL\}}.}
+\def\docdate#1{\gdef\@docdate{#1}}
+\docdate{Use {\tt\textbackslash docdate\{MY DATE\}}.}
+\def\docauthor#1{\gdef\@docauthor{#1}}
+\docauthor{Use {\tt\textbackslash docauthor\{MY NAME\}}.}
+\makeatother
+
+%% General formatting parameters
+\parindent 0pt
+\parskip 12pt plus 1pt
+
+% Shortcuts for blackboard bold number sets (reals, integers, etc.)
+\newcommand{\Reals}{\ensuremath{\mathbb R}}
+\newcommand{\Nats}{\ensuremath{\mathbb N}}
+\newcommand{\Ints}{\ensuremath{\mathbb Z}}
+\newcommand{\Rats}{\ensuremath{\mathbb Q}}
+\newcommand{\Cplx}{\ensuremath{\mathbb C}}
+%% Some equivalents that some people may prefer.
+\let\RR\Reals
+\let\NN\Nats
+\let\II\Ints
+\let\CC\Cplx
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% The main document start here.
+
+% The following commands set up the material that appears in the header.
+\doclabel{Math 426: Homework 7}
+\docauthor{Stefano Fochesatto}
+\docdate{\today}
+
+\newcommand{\vv}{\mathbf{v}}
+\begin{document}
+
+
+
+\begin{exercise} The following is the code for pivoting $LU$ factorization\\
+
+	\textbf{Code:}
+	\begin{center}
+		\lstinputlisting{LUPivot.m}
+	\end{center}
+
+\end{exercise}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{exercise}{Supplemental 1} Write a function to compute the inverse of a $n x n$ matrix $A$.\\
+	\begin{enumerate}
+		\item Let $b_1$ be column $i$ of $A^{-1}$. What are the entries of $Ab_i$? Hint: most of them are zero! 
+		Use the column perspective of matrix multiplication.\\
+
+		\solution  Given that when we multiply a matrix by its inverse we get the identity matrix, let's consider the column perspective of the following equation,
+		\begin{align*}
+			AA^{_1} &= I\\
+			[Ab_1, Ab_2, \dots, Ab_n] &= [i_1, i_2, \dots 1_n]
+		\end{align*} 
+		Therefore it must be the case that $Ab_1 = i_1$ which is a one-hot column vector. 
+		
+		\vspace{.25in}
+
+		\item The following code addresses the part 2 and 3,\\
+		\textbf{Code:}
+		\begin{center}
+			\lstinputlisting{inverse.m}
+		\end{center}
+	\end{enumerate}
+\end{exercise}
+
+\vspace{.5in}
+
+\begin{exercise}{Supplemental 2} Determine, with justification, the number of floating point operations required to compute the
+	inverse of a matrix using the strategy of the previous problem. A complete answer will be of the form,
+	\begin{equation*}
+		cn^j +O(n^k)
+	\end{equation*}
+	where $c$ is an explicit number, and where $j,k$ are explicit integers with $j>k$. \\
+
+	\solution Our method for computing the inverse of $A$ required and $LU$ factorization, a $L$ solve and a $U$ solve. We showed in the Counting FLOPS that 
+	an $L$ solve takes $n^2 - n$ operations and that, a $U$ solve takes $n^2$ operation. As a reminder we showed that for each $x_n$ in the $L$ solve we said that there were $n-1$ multiplications and $n-1$ subtractions,
+	then we used the gauss formula to get,
+	\begin{equation*}
+		\sum_{i = 1}^n 2i - 2 = n^2 - n. 
+	\end{equation*}  
+	Similarly we can count the FLOPS for a $U$ solve, but a faster way is noticing that for each $x_n$ there are $2n - 1$ operations because of the extra division operation, and when summed over $n$ there are $n$ more operation thus $n^2$.
+	Counting the operations for the $LU$ factorization we get that to clear the first column we first find our multiple, then subtract a multiple of row 1 from row 2. Since the first entry will always be 0 we now there are $n-1$ multiplications and subtractions.
+	Doing thus for all the $n-1$ rows to clear the first column leaves us with,
+	\begin{equation*}
+		(n-1)(2(n-1)+1) = 2(n-1)^2+(n-1).
+	\end{equation*} 
+	Now we sum over the $n$ columns. Recall that this sum was calculated in class and it is of the form,
+	\begin{equation*}
+		\sum_{j = 1}^{n} 2(j - 1)^2 + (j - 1) = \dfrac{2}{3}n^3 + a_2n^2 + a_1n.
+	\end{equation*}
+	Where $a_2, a_1$ are constants. Note that our method requires one LU factorization and $n$ $U$ solves and $n$ $L$ solves. Summing over our operations,
+	\begin{equation*}
+		\dfrac{2}{3}n^3 + a_2n^2 + a_1n + n(n^2) + n(n^2 - n) = \dfrac{2}{3}n^3 + a_2n^2 + a_1n + 2n^3 - n^2 =  \dfrac{8}{3}n^3 + O(n^2).
+	\end{equation*}
+
+\end{exercise}
+
+\vspace{.5in}
+
+
+
+
+
+
+\begin{exercise}{Supplemental 3} How many $6 x 6$ permutations exist.\\
+
+	\solution
+		By definition a permutation matrix has only one $'1'$ in each row and column. Adding a $'1'$ to each row a row at a time. 
+		the first row there are 6 columns to choose from. When we move to the second row there is one less column to choose from so there are only 5 spots.Thus there are only $6! = 720$ permutation matrices. 
+
+\end{exercise}
+
+
+\vspace{.5in}
+
+
+\begin{exercise}{Supplemental 4} A permutation matrix can be represented by a vector $[p_1,\dots p_n]$ where $p_i$ records which column contains the $'1'$
+in row $i$. Modify $lsolve$ to make $plsolve$ so it returns,
+\begin{equation*}
+	Lc = Pb.
+\end{equation*}\\
+\textbf{Code:}
+\begin{center}
+	\lstinputlisting{lpsolve.m}
+\end{center}
+
+\end{exercise}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

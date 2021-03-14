@@ -1,0 +1,43 @@
+>> b = [.1 0 0 0 1];
+
+>> X = [] % Matrix to save x values; column index is beta factor
+    
+    for i = 1:12
+        A = MatBuild(.1, 1*10^i);
+        x = usolve_hw9(A,b');
+        X = [X x];
+    end
+
+
+>> D = [] % Matrix to save the error in each u_solve
+
+    for i = 1:12
+        x = X(:,i) - [1 1 1 1 1]';
+        D = [D x];
+    end
+
+
+>> N = [] % Vector to save the Norm of the error
+
+    for i = 1:12
+        N(i) = norm(D(:,i),inf);
+    end
+
+>> N' 
+
+ans =
+
+   1.0e-04 *
+
+   0.000000000004441  Beta = 10^1
+   0.000000000057732
+   0.000000000227596
+   0.000000003638201
+   0.000000058207883
+   0.000000232831532
+   0.000003725291187
+   0.000059604645664
+   0.000238418579324
+   0.003814697265847
+   0.061035156250222
+   0.244140625000888  Beta = 10^12

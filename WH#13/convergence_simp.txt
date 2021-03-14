@@ -1,0 +1,19 @@
+f =
+
+  function_handle with value:
+
+    @(x)cos(x.^2)
+
+>> n = [2, 4, 8, 16, 32, 64, 128, 256];
+
+>> T_h = []
+    for i = 1: 8
+        int = Simpson(f,0,1,n(i));
+        T_h = [T_h,int];
+    end
+
+>> q = quad(f,0,1,[1.e-12 1.e-12]);
+>> E_h = abs(T_h' - q)'
+>> ratio = E_h.*n.^4
+>> table(n',T_h',E_h',ratio',
+    'VariableNames',{'1\h','T_h','E_h','E_h\h^2'})

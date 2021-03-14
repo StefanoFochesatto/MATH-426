@@ -1,0 +1,19 @@
+f =
+
+  function_handle with value:
+
+    @(x)cos(x.^2)
+
+>> n = [1,10,100,1000,10000,100000];
+
+>> T_h = []
+    for i = 1: 6
+        int = Trap(f,0,1,n(i));
+        T_h = [T_h,int];
+    end
+
+>> q = quad(f,0,1,[1.e-12 1.e-12]);
+>> E_h = abs(T_h' - q)'
+>> ratio = E_h.*n.^2
+>> table(n',T_h',E_h',ratio',
+    'VariableNames',{'1\h','T_h','E_h','E_h\h^2'})

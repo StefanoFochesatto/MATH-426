@@ -1,0 +1,5 @@
+>> abs((sin(pi/4) - lagrange(pi/4))/(sin(pi/4)))
+
+ans =
+
+    0.0334

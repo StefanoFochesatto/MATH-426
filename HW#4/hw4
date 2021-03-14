@@ -1,0 +1,7 @@
+[r, hist] = hw4secant(f, -1, 3, 0, 0,5);
+Terminated after Nmax iterations
+[r, hist] = hw4secant(f, -1, 3, 10e-4, 0,10);
+Inside of f tolerance
+[r, hist] = hw4secant(f, -1, 3, 0, 10e-4,10);
+Inside of x tolerance
+diary off

@@ -1,0 +1,26 @@
+>> f = @(x) 1 ./ (1 + 25.*x.^2)
+
+f =
+
+  function_handle with value:
+
+    @(x)1./(1+25.*x.^2)
+
+
+
+>> fd = @(x) (-50.*x)./((25.*x.^2 + 1).^2)
+
+fd =
+
+  function_handle with value:
+
+    @(x)(-50.*x)./((25.*x.^2+1).^2)
+
+
+>> x = linspace(-5,5,13);
+>> xx = linspace(-5,5,10000);
+
+>> px = cubicHermite(x',f(x)',fd(x)',xx');
+
+>> plot(x,f(x),'o',xx, px);
+

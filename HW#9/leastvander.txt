@@ -1,0 +1,18 @@
+n = [1:20];
+N = vandercon(20);
+LogN = log(N');
+
+>> V = [n',ones(size(n',1),1)];
+
+>> c = V\logN
+
+c =
+
+   2.019377877332083   %Solved for M
+  -1.501448611841827   %Solved for b
+
+>> hold on
+>> plot(x, polyval(c,x),'linewidth',2)
+>> plot(n,logN','*','linewidth',2)
+>> grid on
+>> hold off

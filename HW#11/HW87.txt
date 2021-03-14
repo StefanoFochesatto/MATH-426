@@ -1,0 +1,14 @@
+%Sample points from question 4.a
+>> x = linspace(-5,5,13);
+
+%Runge function
+>> f = @(x) 1 ./ (1 + 25.*x.^2);
+
+%set linspace to plot interpolant
+>> xx = linspace(-5,5,10000);
+
+%Calculate interpolant value on xx
+>> vq = interp1(x,f(x),xx);
+
+
+>> plot(x,f(x),'o',xx,vq);

@@ -1,0 +1,47 @@
+>> basis_0
+
+basis_0 =
+
+  function_handle with value:
+
+    @(x)(x-z(2))/(z(1)-z(2))*
+    (x-z(3))/(z(1)-z(3))*
+    (x-z(4))/(z(1)-z(4))
+
+>> basis_1
+
+basis_1 =
+
+  function_handle with value:
+
+    @(x)(x-z(3))/(z(2)-z(3))*
+    (x-z(4))/(z(2)-z(4))*
+    (x-z(1))/(z(2)-z(1))
+
+>> basis_2
+
+basis_2 =
+
+  function_handle with value:
+
+    @(x)(x-z(4))/(z(3)-z(4))*
+    (x-z(1))/(z(3)-z(1))*
+    (x-z(2))/(z(3)-z(2))
+
+>> basis_3
+
+basis_3 =
+
+  function_handle with value:
+
+    @(x)(x-z(1))/(z(4)-z(1))*
+    (x-z(2))/(z(4)-z(2))*
+    (x-z(3))/(z(4)-z(3))
+
+>> hold off
+>> hold on
+fplot(basis_0,[0,pi])
+fplot(basis_1,[0,pi])
+fplot(basis_2,[0,pi])
+fplot(basis_3,[0,pi])
+grid on
